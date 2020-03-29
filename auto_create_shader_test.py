@@ -78,8 +78,7 @@ class MCreateTestShader(QWidget):
         self.setLayout(main_lay)
 
     def _shader_template(self, name):
-        return '''
-Shader "MyShaders/{}" {{
+        return '''Shader "MyShaders/{}" {{
     Fallback "Diffuse"
 }}
 '''.format(name)
@@ -108,8 +107,11 @@ Shader "MyShaders/{}" {{
             logging.debug('write the template shader to {}'.format(shader_file_path))
             f.write(self._shader_template(base_name))
 
-        self.uengine.Shader.WarmupAllShaders()
-        logging.debug('warm up all shaders')
+        but = QMessageBox.information(self, 'Notice','Switch to Unity App')
+        if but <> QMessageBox.Ok:
+            return
+        # self.uengine.Shader.WarmupAllShaders()
+        # logging.debug('warm up all shaders')
 
         shader_location = 'MyShaders/{}'.format(base_name)
         logging.debug('load resource {}'.format(base_name))
